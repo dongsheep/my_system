@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dong.dao.ISeckillDao">
+
+	<select id="getAllSeckillGoods" resultType="com.dong.dto.GoodsDTO">
+		SELECT a.goodsId,b.goodsName,b.goodsDesc,a.price,a.num FROM dx_t_seckill_goods a 
+		LEFT JOIN dx_t_goods b on a.goodsId = b.id 
+	</select>
+	
+	<select id="findSeckillGoodsById" resultType="com.dong.dto.GoodsDTO" parameterType="java.lang.Integer">
+		SELECT a.goodsId,b.goodsName,b.goodsDesc,a.price,a.num FROM dx_t_seckill_goods a  
+		LEFT JOIN dx_t_goods b on a.goodsId = b.id WHERE a.goodsId=#{goodsId}  
+	</select>
+	
+	<update id="updateSeckillGoodsSub" parameterType="java.lang.Integer">
+		UPDATE dx_t_seckill_goods SET num=num-1 WHERE goodsId=#{goodsId} AND num>0
+	</update>
+	
+</mapper>

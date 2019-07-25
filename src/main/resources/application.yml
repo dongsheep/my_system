@@ -1,0 +1,65 @@
+server:
+   #端口号
+   #port: 8443
+   port: 80
+   #ssl:
+      #keystore文件地址，这里拷贝到了文件根目录
+      #key-store: tomcatSSL.keystore
+      #keystores创建时候的密码
+      #key-store-password: tomcat
+      #keyStoreType: JKS
+      #keyAlias: tomcat
+
+spring:   datasource:
+      type: com.alibaba.druid.pool.DruidDataSource
+      url: jdbc:mysql://localhost:3306/maven?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+      username: root
+      password:
+      driverClassName: com.mysql.jdbc.Driver
+   redis:
+      #Redis服务器地址
+      host: 127.0.0.1
+      #Redis服务器连接端口
+      port: 6379
+      #连接超时时间（毫秒）
+      timeout: 10000 
+   mail:      host: smtp.qq.com 
+      username: 408515371@qq.com
+      #邮箱开通POP3/SMTP服务的授权码 
+      password: dbrmwbjbndhzbidb 
+   #activemq: 
+      #broker-url: tcp://127.0.0.1:61616
+      #user: admin 
+      #password: secret 
+   #solr:      #host: http://localhost:8983/solr
+   application:    name: my_demo
+   rabbitmq:    host: 127.0.0.1
+    port: 5672
+    username: admin
+    password: admin
+    publisher-confirms: true
+    virtual-host: /
+   mvc:    view:      prefix: /WEB-INF/jsp
+      suffix: .jsp 
+   #Elasticsearch配置文件（必须） 
+   #该配置和Elasticsearch的elasticsearch.yml中的配置信息有关
+   data: 
+    elasticsearch: 
+     cluster-name: my-application 
+     cluster-nodes: 127.0.0.1:9300 
+     repositories: 
+         enabled: true
+         
+     
+
+
+#指定日志配置文件，默认是log4j2-spring.xml
+logging:
+   config: classpath:log4j2-test.xml
+   
+mybatis:
+   #typeAliasesPackage: com.dong.entity
+         #指定mapper文件
+   mapperLocations: classpath:mapper/**/*Mapper.xml
+
+

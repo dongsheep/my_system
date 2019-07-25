@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dong.dao.IUserDao">
+<!-- 	<cache eviction="LRU" flushInterval="30000" size="1024" readOnly="true" type="com.dong.common.RedisCache" />	 -->
+
+	<select id="getAllUser" resultType="com.dong.entity.User">
+		SELECT * FROM dx_t_user
+	</select>
+
+	<select id="findById" resultType="com.dong.entity.User" parameterType="com.dong.entity.User">
+		SELECT * FROM dx_t_user WHERE userId = #{userId}
+	</select>
+	
+	<!-- flushCache="true" useCache="false" -->
+		
+	<update id="update" parameterType="com.dong.entity.User">
+		UPDATE dx_t_user SET remark = #{remark} WHERE userId = #{userId}
+	</update>	
+	
+</mapper>

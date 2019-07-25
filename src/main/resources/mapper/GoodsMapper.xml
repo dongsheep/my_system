@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dong.dao.IGoodsDao">
+
+	<select id="getAllGoods" resultType="com.dong.entity.Goods">
+		SELECT a.id,a.goodsName,a.goodsDesc,a.price,a.num FROM dx_t_goods a 
+	</select>
+	
+</mapper>
