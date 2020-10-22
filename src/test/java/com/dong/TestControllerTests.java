@@ -65,6 +65,12 @@ public class TestControllerTests {
 			});
 		}
 		ftp.shutdown();
+		
+		StringBuffer buf = new StringBuffer();
+		buf.append("123");
+		
+		StringBuilder bul = new StringBuilder();
+		bul.append("asd");
 
 	}
 

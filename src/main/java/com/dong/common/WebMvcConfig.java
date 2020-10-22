@@ -20,7 +20,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		// TODO Auto-generated method stub
 //		WebMvcConfigurer.super.addCorsMappings(registry);
 
-		registry.addMapping("/**").allowedOrigins("*").allowedMethods("POST", "GET", "PUT", "OPTIONS", "DELETE")
+		registry.addMapping("/**").allowedOrigins("*").allowedMethods("POST", "GET", "PUT", "OPTIONS", "DELETE", "PATCH")
 				.maxAge(3600).allowCredentials(true);
 
 	}

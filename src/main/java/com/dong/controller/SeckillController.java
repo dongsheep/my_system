@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -50,7 +51,6 @@ public class SeckillController {
 		long time = System.currentTimeMillis() + 1000 * 5; // 超时时间：10秒，最好设为常量
 		boolean isLock = redisUtil.lock(String.valueOf(goodsId), String.valueOf(time));
 		if (!isLock) {
-//			throw new RuntimeException("人太多了，换个姿势再试试~");
 			rec.setCode("01");
 			rec.setMsg("Busy, try again...");
 			return rec;
@@ -77,7 +77,7 @@ public class SeckillController {
 		redisUtil.unlock(String.valueOf(goodsId), String.valueOf(time));
 		return rec;
 	}
-
+	
 	@RequestMapping("/buy2.do")
 	@ResponseBody
 	public ResultModel<Object> seckillGoods2(HttpServletRequest request, @RequestParam("goodsId") int goodsId,
@@ -93,9 +93,10 @@ public class SeckillController {
 		if (redisUtil.hasKey("seckillGoods:" + goodsId + ":" + userId)) {
 			rec.setCode("01");
 			rec.setMsg("You have brought it, don't submit again...");
+			return rec;
 		}
 		// 向Rabbitmq发送消息
-		rabbitTemplate.convertAndSend("goods-queue", goodsId + ":" + userId);
+		rabbitTemplate.convertAndSend("goods-exchange", "goods-routing-key", goodsId + ":" + userId);
 		// 等待Rabbitmq处理消息
 		try {
 			Thread.sleep(2000); // 睡2秒
@@ -103,6 +104,7 @@ public class SeckillController {
 			e.printStackTrace();
 			rec.setCode("02");
 			rec.setMsg("System error...");
+			return rec;
 		}
 		// 查询是否已经抢购到了
 		if (redisUtil.hasKey("seckillGoods:" + goodsId + ":" + userId)) {
@@ -119,7 +121,6 @@ public class SeckillController {
 		// Rabbitmq未处理完消息
 		rec.setCode("02");
 		rec.setMsg("Failure...");
-//		rec.setMsg("Rabbitmq busy...");
 		return rec;
 	}
 

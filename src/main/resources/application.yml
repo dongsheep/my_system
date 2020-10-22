@@ -37,7 +37,8 @@ spring:   datasource:
     port: 5672
     username: admin
     password: admin
-    publisher-confirms: true
+    publisher-confirms: true #开启发送确认
+    publisher-returns: true #开启发送失败回退
     virtual-host: /
    mvc:    view:      prefix: /WEB-INF/jsp
       suffix: .jsp 
@@ -49,8 +50,7 @@ spring:   datasource:
      cluster-nodes: 127.0.0.1:9300 
      repositories: 
          enabled: true
-         
-     
+   
 
 
 #指定日志配置文件，默认是log4j2-spring.xml
@@ -61,5 +61,6 @@ mybatis:
    #typeAliasesPackage: com.dong.entity
          #指定mapper文件
    mapperLocations: classpath:mapper/**/*Mapper.xml
+   
 
 

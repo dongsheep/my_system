@@ -583,7 +583,7 @@ public class RedisUtil {
 	 * @return
 	 */
 	public boolean lock(String key, String value) {
-		if (redisTemplate.opsForValue().setIfAbsent(key, value)) { // 这个其实就是setnx命令，只不过在java这边稍有变化，返回的是boolea
+		if (redisTemplate.opsForValue().setIfAbsent(key, value)) { // 这个其实就是setnx命令，只不过在java这边稍有变化，返回的是boolean
 			return true;
 		}
 		// 避免死锁，且只让一个线程拿到锁

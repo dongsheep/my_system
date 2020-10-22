@@ -10,7 +10,7 @@ import com.dong.common.SendMailTool;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class SendMailTooleTests {
+public class SendMailToolTests {
 
 	@Autowired
 	private SendMailTool sendMailTool;

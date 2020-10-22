@@ -70,6 +70,16 @@ public class TestController {
 	    return rec;
 	}
 
+	/**
+	 * Elasticsearch
+	 * 
+	 * @param pageable
+	 * @param name
+	 * @return
+	 * 
+	 * http://localhost/es/search.do?name=魅族&page=0&size=10&sort=num,DESC
+	 * 
+	 */
 	@GetMapping("/es/search.do")
 	public ResultModel<Object> getByName(Pageable pageable, String name){
 		ResultModel<Object> rec = new ResultModel<>();
