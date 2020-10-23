@@ -22,76 +22,14 @@
 	</properties>
 
 	<dependencies>
-		<dependency><!-- tomcat作为应用服务器 -->
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency><!-- RabbitMQ -->
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-amqp</artifactId>
-		</dependency>
-		<dependency><!-- elasticsearch -->
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
-		</dependency>
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.springframework.data</groupId> -->
-<!-- 			<artifactId>spring-data-elasticsearch</artifactId> -->
-<!-- 		</dependency> -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.elasticsearch</groupId> -->
-<!-- 			<artifactId>elasticsearch</artifactId> -->
-<!-- 		</dependency> -->
-		<dependency><!-- spring data jpa -->
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<dependency><!-- redis -->
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-redis</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-redis-reactive</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-cache</artifactId>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.springframework.session/spring-session-data-redis -->
-		<dependency>
-		    <groupId>org.springframework.session</groupId>
-		    <artifactId>spring-session-data-redis</artifactId>
-<!-- 		    <version>2.2.0.RELEASE</version> -->
-		</dependency>
-		<dependency><!-- 邮件发送 -->
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-mail</artifactId>
-		</dependency>
-		<dependency><!-- quartz -->
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-quartz</artifactId>
-		</dependency>
 		<dependency><!-- 支持 Web 应用开发，包含 Tomcat 和 spring-mvc -->
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<dependency><!-- Spring Boot Admin 是一个管理和监控 Spring Boot 应用程序的开源软件 -->
-			<groupId>de.codecentric</groupId>
-			<artifactId>spring-boot-admin-starter-client</artifactId>
-		</dependency>
-		<dependency><!-- Mybatis -->
-			<groupId>org.mybatis.spring.boot</groupId>
-			<artifactId>mybatis-spring-boot-starter</artifactId>
-			<version>2.0.1</version>
-		</dependency>
-		<dependency><!-- 热部署 -->
+		<dependency><!-- tomcat作为应用服务器 -->
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency><!-- 包含常用的测试所需的依赖，如 JUnit、Hamcrest、Mockito 和 spring-test 等 -->
 			<groupId>org.springframework.boot</groupId>
@@ -113,9 +51,69 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency><!-- 热部署 -->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
 		<dependency><!-- 引入log4j2依赖 -->
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-log4j2</artifactId>
+		</dependency>
+		
+		<dependency><!-- activemq -->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-activemq</artifactId>
+		</dependency>
+		<dependency><!-- Sorl搜索客户端 -->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-solr</artifactId>
+		</dependency>
+		<dependency><!-- RabbitMQ -->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency>
+		<dependency><!-- elasticsearch -->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+		</dependency>
+		<dependency><!-- spring data jpa -->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency><!-- redis -->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.boot</groupId> -->
+<!-- 			<artifactId>spring-boot-starter-data-redis-reactive</artifactId> -->
+<!-- 		</dependency> -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency>
+<!-- 		<dependency> -->
+<!-- 		    <groupId>org.springframework.session</groupId> -->
+<!-- 		    <artifactId>spring-session-data-redis</artifactId> -->
+<!-- 		</dependency> -->
+		<dependency><!-- 邮件发送 -->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+		<dependency><!-- quartz -->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-quartz</artifactId>
+		</dependency>
+		<dependency><!-- Spring Boot Admin 是一个管理和监控 Spring Boot 应用程序的开源软件 -->
+			<groupId>de.codecentric</groupId>
+			<artifactId>spring-boot-admin-starter-client</artifactId>
+		</dependency>
+		<dependency><!-- Mybatis -->
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>2.0.1</version>
 		</dependency>
 		<dependency><!-- Mysql连接 -->
 			<groupId>mysql</groupId>
@@ -140,6 +138,7 @@
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
 		</dependency>
+		
 		<!-- jsp标签支持. -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -151,6 +150,29 @@
 		    <artifactId>cglib</artifactId>
 		    <version>3.3.0</version>
 		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>javax.validation</groupId> -->
+<!-- 			<artifactId>validation-api</artifactId> -->
+<!-- 		</dependency> -->
+		<dependency><!-- httpclient -->
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+		</dependency>
+		<dependency><!-- json -->
+		    <groupId>com.alibaba</groupId>
+		    <artifactId>fastjson</artifactId>
+		    <version>1.2.73</version>
+		</dependency>
+		<dependency><!-- commons-lang3 -->
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-lang3</artifactId>
+		</dependency>
+		<dependency><!-- Hutool-A set of tools that keep Java sweet -->
+		    <groupId>cn.hutool</groupId>
+		    <artifactId>hutool-all</artifactId>
+		    <version>5.4.1</version>
+		</dependency>
+		
 		
 	</dependencies>
 

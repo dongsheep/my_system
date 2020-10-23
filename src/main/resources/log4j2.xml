@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 日志信息打印级别 ALL < TRACE < DEBUG < INFO < WARN < ERROR < FATAL < OFF -->
+<!--status="WARN":用于设置log4j2自身内部日志的信息输出级别，默认是OFF-->
+<!--monitorInterval="30":间隔秒数,自动检测配置文件的变更和重新配置本身-->
+<Configuration status="INFO" monitorInterval="30">
+	<!-- 定义常量,使用${变量名}引用 -->
+	<properties>
+		<property name="LOG_HOME">logs</property>
+<!-- 		<property name="LOG_HOME">../logs</property> -->
+		<property name="FILE_NAME">mylog</property>
+		<property name="charset">UTF-8</property>
+		<!--自定义的输出格式-->
+    	<property name="pattern">%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</property>
+	</properties>
+<!--Appenders:定义输出内容,输出格式,输出方式,日志保存策略等,常用其下三种标签[Console,File,RollingFile]-->
+<!--Appender:日志的输出目的地-->
+	<Appenders>
+		<!--console :控制台输出的配置-->
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="${pattern}" charset="${charset}" />
+		</Console>
+		<!-- <File name="MyFile" fileName="D:/logs/maven.log"> -->
+		<!-- <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" /> -->
+		<!-- </File> -->
+		<!-- Rolling的意思是当满足一定条件后，就重命名原日志文件用于备份，并从新生成一个新的日志文件 -->
+		<!--RollingRandomAccessFile性能比RollingFile提升官网宣称是20-200%-->
+		<RollingRandomAccessFile name="MyFile" immediateFlush="true" bufferSize="1024" ignoreExceptions="false" 
+			fileName="${LOG_HOME}/${FILE_NAME}.log"
+			filePattern="${LOG_HOME}/$${date:yyyy-MM}/${FILE_NAME}-%d{yyyy-MM-dd HH}-%i.log">
+			<PatternLayout pattern="${pattern}" charset="${charset}" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" /><!-- 这个配置需要和filePattern结合使用，日志文件每1小时滚动一次 -->
+				<SizeBasedTriggeringPolicy size="10 MB" /><!-- 指定当文件体积大于size指定的值时，触发Rolling -->
+			</Policies>
+			<DefaultRolloverStrategy max="20" /><!-- 指定最多保存的文件个数 -->
+		</RollingRandomAccessFile>
+	</Appenders>
+<!--定义logger，只有定义了logger并引入的appender，appender才会生效-->
+	<Loggers>
+		<Root level="info">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="MyFile" />
+		</Root>
+		<!-- additivity开启的话，root的也会开启 -->
+		<!-- <Logger name="mylog" level="info" additivity="true"> -->
+		<!-- <AppenderRef ref="MyFile" /> -->
+		<!-- </Logger> -->
+	</Loggers>
+</Configuration>

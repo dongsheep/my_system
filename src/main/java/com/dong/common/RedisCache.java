@@ -4,8 +4,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-import javax.annotation.Resource;
-
 import org.apache.ibatis.cache.Cache;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,7 +12,13 @@ import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.stereotype.Component;
+
+/**
+ * 基于redis的自定义cache-做二级缓存
+ * 
+ * @author xiedongxiao
+ *
+ */
 
 public class RedisCache implements Cache {
 
@@ -22,9 +26,9 @@ public class RedisCache implements Cache {
 
 	private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
 	private final String id;
-	private RedisTemplate redisTemplate;
+	private RedisTemplate<String, Object> redisTemplate;
 
-	private static final long EXPIRE_TIME_IN_MINUTES = 30;
+	private static final long EXPIRE_TIME_IN_MINUTES = 30; // 默认缓存对象的缓存时间为 1 分钟
 
 	public RedisCache(String id) {
 		if (id == null) {
@@ -33,7 +37,7 @@ public class RedisCache implements Cache {
 		this.id = id;
 	}
 
-	private RedisTemplate getRedisTemplate() {
+	private RedisTemplate<String, Object> getRedisTemplate() {
 		if (redisTemplate == null) {
 			redisTemplate = ApplicationContextHolder.getBean("redisTemplate");
 		}
@@ -47,24 +51,24 @@ public class RedisCache implements Cache {
 
 	@Override
 	public void putObject(Object key, Object value) {
-		RedisTemplate temp = this.getRedisTemplate();
-		ValueOperations opsForValue = temp.opsForValue();
-		opsForValue.set(key, value, EXPIRE_TIME_IN_MINUTES, TimeUnit.MINUTES);
+		RedisTemplate<String, Object> temp = this.getRedisTemplate();
+		ValueOperations<String, Object> opsForValue = temp.opsForValue();
+		opsForValue.set(key.toString(), value, EXPIRE_TIME_IN_MINUTES, TimeUnit.MINUTES);
 		log.debug("Put query result to redis");
 	}
 
 	@Override
 	public Object getObject(Object key) {
-		RedisTemplate temp = this.getRedisTemplate();
-		ValueOperations opsForValue = temp.opsForValue();
+		RedisTemplate<String, Object> temp = this.getRedisTemplate();
+		ValueOperations<String, Object> opsForValue = temp.opsForValue();
 		log.debug("Get cached query result from redis");
-		return opsForValue.get(key);
+		return opsForValue.get(key.toString());
 	}
 
 	@Override
 	public Object removeObject(Object key) {
-		RedisTemplate temp = this.getRedisTemplate();
-		temp.delete(key);
+		RedisTemplate<String, Object> temp = this.getRedisTemplate();
+		temp.delete(key.toString());
 		log.debug("Remove cached query result from redis");
 		return key;
 	}
@@ -79,11 +83,12 @@ public class RedisCache implements Cache {
 				return null;
 			}
 		});
+//		redisTemplate.getConnectionFactory().getConnection().flushDb();
 	}
 
 	@Override
 	public int getSize() {
-		return 0;
+		return redisTemplate.getConnectionFactory().getConnection().dbSize().intValue();
 	}
 
 	@Override

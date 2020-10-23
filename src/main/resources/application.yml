@@ -55,7 +55,7 @@ spring:   datasource:
 
 #指定日志配置文件，默认是log4j2-spring.xml
 logging:
-   config: classpath:log4j2-test.xml
+   config: classpath:log4j2.xml
    
 mybatis:
    #typeAliasesPackage: com.dong.entity

@@ -20,7 +20,7 @@ import org.springframework.util.StringUtils;
  *
  */
 
-@Component
+@Component(value = "redisUtil")
 public class RedisUtil {
 
 	private static Logger log = LogManager.getLogger(RedisUtil.class);
@@ -571,6 +571,21 @@ public class RedisUtil {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
+		}
+	}
+	
+	/**
+	 * list弹出左边第一个元素
+	 * 
+	 * @param key
+	 * @return
+	 */
+	public Object lPop(String key) {
+		try {
+			return redisTemplate.opsForList().leftPop(key);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 
