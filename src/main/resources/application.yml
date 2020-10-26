@@ -1,6 +1,6 @@
 server:
    #端口号
-   #port: 8443
+   #port: 443
    port: 80
    #ssl:
       #keystore文件地址，这里拷贝到了文件根目录
@@ -14,8 +14,8 @@ spring:   datasource:
       type: com.alibaba.druid.pool.DruidDataSource
       url: jdbc:mysql://localhost:3306/maven?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
       username: root
-      password:
-      driverClassName: com.mysql.jdbc.Driver
+      password: root
+      driverClassName: com.mysql.cj.jdbc.Driver
    redis:
       #Redis服务器地址
       host: 127.0.0.1
@@ -45,11 +45,11 @@ spring:   datasource:
    #Elasticsearch配置文件（必须） 
    #该配置和Elasticsearch的elasticsearch.yml中的配置信息有关
    data: 
-    elasticsearch: 
+    elasticsearch:  
      cluster-name: my-application 
      cluster-nodes: 127.0.0.1:9300 
      repositories: 
-         enabled: true
+      enabled: true
    
 
 
